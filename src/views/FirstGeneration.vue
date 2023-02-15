@@ -11,13 +11,11 @@ let pokemonSprite = ref(
 );
 let searchPokemonField = ref("");
 let chosenPokemon = ref();
-let FirstPokemon = ref({});
+
 
 const fetchData = async () => {
   const response = await http.get();
-  pokemons.value = response.data.results.sort(() => Math.random() - 0.5);
-  FirstPokemon.value = response.data.results;
-  console.log(FirstPokemon.value);
+  pokemons.value = response.data.results.slice(0, 151 );
 };
 
 onMounted(() => {
@@ -36,37 +34,29 @@ const pokemonsFiltered = computed(() => {
   return pokemons.value;
 });
 
-async function selectPokemon(pokemon) {
-  const response = await http.get(pokemon.url);
-  chosenPokemon.value = response.data;
-}
-
-async function FirstPokemonRandom(pokemons) {
-  const response = await http.get(pokemons.url);
-  FirstPokemon.value = response.data;
-  console.log(FirstPokemon.value);
-}
+const selectPokemon = async (pokemon) => {
+  await fetch(pokemon.url).then(res => res.json())
+  .then(res => chosenPokemon.value = res);
+};
 </script>
 
 <template>
   <main>
     <div class="container">
-      <h1 class="text-center">All Generations</h1>
-      ,
+      <h1 class="text-center">First Generations</h1>
       <div class="row mt-5 mb-5">
         <div class="col-sm-12 col-md-6">
-          <MainCard
-            :name="chosenPokemon?.name ?? FirstPokemon[0]?.name"
-            :sprite="chosenPokemon?.sprites.other.dream_world.front_default"
-            :xp="chosenPokemon?.base_experience ?? FirstPokemon?.base_experience"
-            :height="chosenPokemon?.height"
-            :weight="chosenPokemon?.weight"
-            :hp="chosenPokemon?.stats[0].base_stat"
-            :attack="chosenPokemon?.stats[1].base_stat"
-            :defense="chosenPokemon?.stats[2].base_stat"
-            :specialA="chosenPokemon?.stats[3].base_stat"
-            :specialD="chosenPokemon?.stats[4].base_stat"
-            :speed="chosenPokemon?.stats[5].base_stat"
+          <MainCard :name="chosenPokemon?.name"
+          :sprite="chosenPokemon?.sprites.other.dream_world.front_default"
+          :xp="chosenPokemon?.base_experience"
+          :height="chosenPokemon?.height"
+          :hp="chosenPokemon?.stats[0].base_stat"
+          :attack="chosenPokemon?.stats[1].base_stat"
+          :defense="chosenPokemon?.stats[2].base_stat"
+          :specialA="chosenPokemon?.stats[3].base_stat"
+          :specialD="chosenPokemon?.stats[4].base_stat"
+          :speed="chosenPokemon?.stats[5].base_stat"
+          :weight="chosenPokemon?.weight"
           />
         </div>
         <div class="col-sm-12 col-md-6">
@@ -87,7 +77,7 @@ async function FirstPokemonRandom(pokemons) {
                 :key="pokemon.id"
                 :name="pokemon.name"
                 :sprite="pokemonSprite + pokemon.url.split('/')[6] + '.svg'"
-                @click="chosenPokemon(pokemon)"
+                @click="selectPokemon(pokemon)"
               />
             </div>
           </div>
@@ -98,7 +88,8 @@ async function FirstPokemonRandom(pokemons) {
 </template>
 
 <style scoped>
-.card-list {
+
+.card-list{
   max-height: 560px;
   overflow-y: scroll;
   overflow-x: hidden;

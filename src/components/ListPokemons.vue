@@ -8,12 +8,12 @@ const pokemon = defineProps(["name", "sprite"])
 </script>
 
 <template>
-    <div class="col-6">
+    <div class="col-sm-6 col-4">
           <div class="card p-2 mb-3 shadow cardListPokemon">
            <p class="text-center">{{ pokemon.name }}</p>
            <img height="80"
            :src="sprite"
-              class="card-img-top"
+              class="card-img-top pt-2"
             />
           </div>
         </div>
