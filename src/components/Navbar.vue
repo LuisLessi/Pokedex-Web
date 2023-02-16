@@ -3,15 +3,16 @@
 <template>
   <nav class="navbar navbar-expand-lg-fixed navbar-dark bg-primary">
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">
         <img
           src="../assets/icon_navbar.png"
           alt="Bootstrap"
           class="icon_navbar"
           width="30"
           height="24"
+          data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
         />
-      </router-link>
       <router-link class="navbar-brand" to="/">Pokédex Web</router-link>
       <button
         class="navbar-toggler"
@@ -79,6 +80,7 @@ a:-webkit-any-link {
   box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
   transform: translatey(0px);
   animation: float 6s ease-in-out infinite;
+  cursor: pointer;
 }
 
 </style>

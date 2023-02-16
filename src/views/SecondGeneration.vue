@@ -11,6 +11,7 @@ let pokemonSprite = ref(
 );
 let searchPokemonField = ref("");
 let chosenPokemon = ref();
+let loading = ref(false)
 
 
 const fetchData = async () => {
@@ -34,10 +35,19 @@ const pokemonsFiltered = computed(() => {
   return pokemons.value;
 });
 
-const selectPokemon = async (pokemon) => {
-  await fetch(pokemon.url).then(res => res.json())
-  .then(res => chosenPokemon.value = res);
-};
+async function selectPokemon(pokemon) {
+  loading.value = true;
+  try {
+  const response = await http.get(pokemon.url);
+  chosenPokemon.value = response.data; 
+
+  } catch (error) {
+    alert(error)
+  } finally{
+    loading.value = false;
+  }
+
+}
 </script>
 
 <template>
@@ -46,17 +56,19 @@ const selectPokemon = async (pokemon) => {
       <h1 class="text-center">Second Generation</h1>
       <div class="row mt-5 mb-5">
         <div class="col-sm-12 col-md-6">
-          <MainCard :name="chosenPokemon?.name"
-          :sprite="chosenPokemon?.sprites.other.dream_world.front_default"
-          :xp="chosenPokemon?.base_experience"
-          :height="chosenPokemon?.height"
-          :hp="chosenPokemon?.stats[0].base_stat"
-          :attack="chosenPokemon?.stats[1].base_stat"
-          :defense="chosenPokemon?.stats[2].base_stat"
-          :specialA="chosenPokemon?.stats[3].base_stat"
-          :specialD="chosenPokemon?.stats[4].base_stat"
-          :speed="chosenPokemon?.stats[5].base_stat"
-          :weight="chosenPokemon?.weight"
+          <MainCard
+            :loading="loading"
+            :name="chosenPokemon?.name ?? 'Choose a pokemon'"
+            :sprite="chosenPokemon?.sprites.other.dream_world.front_default ?? none"
+            :xp="chosenPokemon?.base_experience ?? '???'"
+            :height="chosenPokemon?.height ?? '???'"
+            :weight="chosenPokemon?.weight ?? '???'"
+            :hp="chosenPokemon?.stats[0].base_stat ?? '???'"
+            :attack="chosenPokemon?.stats[1].base_stat ?? '???'"
+            :defense="chosenPokemon?.stats[2].base_stat ?? '???'"
+            :specialA="chosenPokemon?.stats[3].base_stat ?? '???'"
+            :specialD="chosenPokemon?.stats[4].base_stat ?? '???'"
+            :speed="chosenPokemon?.stats[5].base_stat ?? '???'"
           />
         </div>
         <div class="col-sm-12 col-md-6">

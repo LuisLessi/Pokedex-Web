@@ -15,12 +15,17 @@ const pokemon = defineProps([
   "specialD",
   "speed",
   "sprite",
+  "loading"
 ]);
 </script>
 
 <template>
-  <div class="card cardListPokemon">
-    <img :src="sprite" class="card-img-top" height="200" alt="Pokemon image" />
+  <div class="card cardListPokemon"
+    :class="loading ? '':'animate__animated animate__zoomIn'">
+
+    <img v-if="pokemon.sprite" :src="sprite" class="card-img-top" height="200" alt="???" />
+
+    <img v-else src="../assets/egg_pokemon.svg" class="card-img-top" height="200" alt="Pokemon image" />
     <div class="card-body">
       <h3 class="card-title text-center">{{ pokemon.name }}</h3>
       <hr />
@@ -80,7 +85,7 @@ const pokemon = defineProps([
 <style scoped>
 .cardListPokemon{
     background: rgb(72,63,251);
-    background: radial-gradient(circle, rgba(155, 69, 69, 0.12) 0%, rgba(252, 70, 70, 0.9));
+    background: radial-gradient(circle, rgba(155, 69, 69, 0.12) 40%, rgba(252, 70, 70, 0.9)95%);
     
 }
 

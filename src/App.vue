@@ -10,7 +10,8 @@ import Home from './views/HomeView.vue'
 <template>
   <div>
     <Navbar/>
-    
+    <PageLoader />
+
     <!-- CONTENT -->
     <div class="main">
       <router-view></router-view>
@@ -19,6 +20,13 @@ import Home from './views/HomeView.vue'
   </div>
 </template>
 
-<style>
+<script>
+import PageLoader from './components/PageLoarder.vue'
+</script>
 
+<style >
+body{
+  
+  background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(213,50,39,1) 50%, rgba(69,180,252,1) 100%);}
 </style>
