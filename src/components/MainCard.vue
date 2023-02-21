@@ -93,4 +93,10 @@ const pokemon = defineProps([
     padding: .1rem;
 }
 
+@media (max-width: 60px) {
+  .cardListPokemon{
+    width: 300px
+    
+  }
+}
 </style>

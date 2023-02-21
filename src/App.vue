@@ -10,7 +10,6 @@ import Home from './views/HomeView.vue'
 <template>
   <div>
     <Navbar/>
-    <PageLoader />
 
     <!-- CONTENT -->
     <div class="main">
@@ -21,7 +20,6 @@ import Home from './views/HomeView.vue'
 </template>
 
 <script>
-import PageLoader from './components/PageLoarder.vue'
 </script>
 
 <style >

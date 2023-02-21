@@ -28,10 +28,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">All generation</router-link>
+            <router-link class="nav-link" to="/all">All generation</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/First"
+            <router-link class="nav-link" to="/"
               >First generation</router-link
             >
           </li>
